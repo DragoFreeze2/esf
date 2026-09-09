@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ember Smoke & Flavor — Order Calculator</title>
+<style>
+  :root {
+    --steel: #14110e;
+    --bronze: #3a2418;
+    --gold: #c9a668;
+    --ember: #b8451f;
+    --cream: #f5efe4;
+    --cream-dim: #e8dfcc;
+    --ink: #211b16;
+    --ink-soft: #6b5f52;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: Georgia, 'Times New Roman', serif;
+    line-height: 1.4;
+    padding-bottom: 140px;
+  }
+
+  header {
+    background: var(--steel);
+    color: var(--cream);
+    text-align: center;
+    padding: 24px 20px 20px;
+  }
+
+  header h1 {
+    font-size: 22px;
+    letter-spacing: 0.5px;
+  }
+
+  header p {
+    color: var(--gold);
+    font-size: 13px;
+    font-style: italic;
+    margin-top: 4px;
+  }
+
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .section {
+    margin-bottom: 28px;
+  }
+
+  .section h2 {
+    font-size: 17px;
+    color: var(--ember);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--cream-dim);
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--cream-dim);
+  }
+
+  .item:last-child { border-bottom: none; }
+
+  .item-info { flex: 1; min-width: 0; }
+
+  .item-name {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--steel);
+  }
+
+  .item-price {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 1px;
+  }
+
+  .qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .qty-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ember);
+    background: var(--cream);
+    color: var(--ember);
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    line-height: 1;
+  }
+
+  .qty-btn:active {
+    background: var(--ember);
+    color: var(--cream);
+  }
+
+  .qty-count {
+    min-width: 20px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--steel);
+  }
+
+  .qty-minus {
+    visibility: hidden;
+  }
+
+  .qty-minus.show {
+    visibility: visible;
+  }
+
+  /* ===== DELIVERY ===== */
+  .delivery-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .delivery-btn {
+    flex: 1;
+    min-width: 100px;
+    padding: 12px 10px;
+    border: 1.5px solid var(--ink-soft);
+    border-radius: 6px;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: Georgia, serif;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .delivery-btn.active {
+    border-color: var(--ember);
+    background: var(--ember);
+    color: var(--cream);
+    font-weight: bold;
+  }
+
+  /* ===== STICKY TOTAL BAR ===== */
+  .total-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--steel);
+    color: var(--cream);
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.25);
+  }
+
+  .total-bar .label {
+    font-size: 13px;
+    color: var(--gold);
+  }
+
+  .total-bar .amount {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .total-bar .btn-group {
+    display: flex;
+    gap: 6px;
+  }
+
+  .total-bar .reset-btn {
+    background: none;
+    border: 1px solid var(--cream-dim);
+    color: var(--cream);
+    font-family: Georgia, serif;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .total-bar .receipt-btn {
+    background: var(--ember);
+    border: 1px solid var(--ember);
+    color: var(--cream);
+    font-family: Georgia, serif;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .total-breakdown {
+    font-size: 11px;
+    color: #b8ac9a;
+    margin-top: 2px;
+  }
+
+  /* ===== RECEIPT OVERLAY ===== */
+  .receipt-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(20,17,14,0.85);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .receipt-overlay.active {
+    display: flex;
+  }
+
+  .receipt-card {
+    background: var(--cream);
+    max-width: 380px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    border-radius: 6px;
+    padding: 24px 22px;
+  }
+
+  .receipt-header {
+    text-align: center;
+    border-bottom: 2px dashed var(--steel);
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+  }
+
+  .receipt-header h2 {
+    font-size: 19px;
+    color: var(--steel);
+    letter-spacing: 0.3px;
+  }
+
+  .receipt-header p {
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-top: 3px;
+  }
+
+  .receipt-line {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 13.5px;
+    padding: 4px 0;
+  }
+
+  .receipt-line .rname {
+    color: var(--ink);
+  }
+
+  .receipt-line .rqty {
+    color: var(--ink-soft);
+    font-size: 12px;
+  }
+
+  .receipt-line .rprice {
+    color: var(--steel);
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  .receipt-divider {
+    border-top: 1px dashed var(--cream-dim);
+    margin: 10px 0;
+  }
+
+  .receipt-total-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 17px;
+    font-weight: bold;
+    color: var(--ember);
+    padding-top: 10px;
+    border-top: 2px dashed var(--steel);
+    margin-top: 10px;
+  }
+
+  .receipt-empty {
+    text-align: center;
+    color: var(--ink-soft);
+    font-style: italic;
+    font-size: 13px;
+    padding: 10px 0;
+  }
+
+  .receipt-close-btn {
+    display: block;
+    width: 100%;
+    margin-top: 18px;
+    padding: 12px;
+    background: var(--steel);
+    color: var(--cream);
+    border: none;
+    border-radius: 6px;
+    font-family: Georgia, serif;
+    font-size: 14px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Ember Smoke &amp; Flavor</h1>
+  <p>Order Calculator</p>
+</header>
+
+<main>
+
+  <div class="section">
+    <h2>Smoked Chicken</h2>
+    <div class="item" data-name="Full Chicken" data-price="19750">
+      <div class="item-info">
+        <div class="item-name">Full Chicken</div>
+        <div class="item-price">19,750 IQD</div>
+      </div>
+      <div class="qty-controls">
+        <div class="qty-btn qty-minus">&minus;</div>
+        <div class="qty-count">0</div>
+        <div class="qty-btn qty-plus">+</div>
+      </div>
+    </div>
+    <div class="item" data-name="Half Chicken" data-price="10250">
+      <div class="item-info">
+        <div class="item-name">Half Chicken</div>
+        <div class="item-price">10,250 IQD</div>
+      </div>
+      <div class="qty-controls">
+        <div class="qty-btn qty-minus">&minus;</div>
+        <div class="qty-count">0</div>
+        <div class="qty-btn qty-plus">+</div>
+      </div>
+    </div>
+    <div class="item" data-name="Quarter — Thigh" data-price="5750">
+      <div class="item-info">
+        <div class="item-name">Quarter — Thigh</div>
+        <div class="item-price">5,750 IQD</div>
+      </div>
+      <div class="qty-controls">
+        <div class="qty-btn qty-minus">&minus;</div>
+        <div class="qty-count">0</div>
+        <div class="qty-btn qty-plus">+</div>
+      </div>
+    </div>
+    <div class="item" data-name="Quarter — Breast" data-price="6750">
+      <div class="item-info">
+        <div class="item-name">Quarter — Breast</div>
+        <div class="item-price">6,750 IQD</div>
+      </div>
+      <div class="qty-controls">
+        <div class="qty-btn qty-minus">&minus;</div>
+        <div class="qty-count">0</div>
+        <div class="qty-btn qty-plus">+</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Extra Sauce</h2>
+    <div class="item" data-name="Original BBQ" data-price="1000">
+      <div class="item-info"><div class="item-name">Original BBQ</div><div class="item-price">1,000 IQD</div></div>
+      <div class="qty-controls">
+        <div class="qty-btn qty-minus">&minus;</div>
+        <div class="qty-count">0</div>
+        <div class="qty-btn qty-plus">+</div>
+      </div>
+    </div>
+    <div class="item" data-name="Ember White" data-price="1000">
+      <div class="item-info"><div class="item-name">Ember White</div><div class="item-price">1,000 IQD</div></div>
+      <div class="qty-controls">
+        <div class="qty-btn qty-minus">&minus;</div>
+        <div class="qty-count">0</div>
+        <div class="qty-btn qty-plus">+</div>
+      </div>
+    </div>
+    <div class="item" data-name="Ember Heat" data-price="1000">
+      <div class="item-info"><div class="item-name">Ember Heat</div><div class="item-price">1,000 IQD</div></div>
+      <div class="qty-controls">
+        <div class="qty-btn qty-minus">&minus;</div>
+        <div class="qty-count">0</div>
+        <div class="qty-btn qty-plus">+</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Sides</h2>
+    <div class="item" data-name="Signature Red Vegetable Rice" data-price="3500">
+      <div class="item-info"><div class="item-name">Signature Red Vegetable Rice</div><div class="item-price">3,500 IQD</div></div>
+      <div class="qty-controls">
+        <div class="qty-btn qty-minus">&minus;</div>
+        <div class="qty-count">0</div>
+        <div class="qty-btn qty-plus">+</div>
+      </div>
+    </div>
+    <div class="item" data-name="Ember Smoked Vegetables" data-price="3000">
+      <div class="item-info"><div class="item-name">Ember Smoked Vegetables</div><div class="item-price">3,000 IQD</div></div>
+      <div class="qty-controls">
+        <div class="qty-btn qty-minus">&minus;</div>
+        <div class="qty-count">0</div>
+        <div class="qty-btn qty-plus">+</div>
+      </div>
+    </div>
+    <div class="item" data-name="Ember Butter Potatoes" data-price="3000">
+      <div class="item-info"><div class="item-name">Ember Butter Potatoes</div><div class="item-price">3,000 IQD</div></div>
+      <div class="qty-controls">
+        <div class="qty-btn qty-minus">&minus;</div>
+        <div class="qty-count">0</div>
+        <div class="qty-btn qty-plus">+</div>
+      </div>
+    </div>
+    <div class="item" data-name="White Rice" data-price="1500">
+      <div class="item-info"><div class="item-name">White Rice</div><div class="item-price">1,500 IQD</div></div>
+      <div class="qty-controls">
+        <div class="qty-btn qty-minus">&minus;</div>
+        <div class="qty-count">0</div>
+        <div class="qty-btn qty-plus">+</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Beverages</h2>
+    <div class="item" data-name="Bottled Water" data-price="500">
+      <div class="item-info"><div class="item-name">Bottled Water (500ml)</div><div class="item-price">500 IQD</div></div>
+      <div class="qty-controls">
+        <div class="qty-btn qty-minus">&minus;</div>
+        <div class="qty-count">0</div>
+        <div class="qty-btn qty-plus">+</div>
+      </div>
+    </div>
+    <div class="item" data-name="Coca-Cola" data-price="1000">
+      <div class="item-info"><div class="item-name">Coca-Cola (330ml)</div><div class="item-price">1,000 IQD</div></div>
+      <div class="qty-controls">
+        <div class="qty-btn qty-minus">&minus;</div>
+        <div class="qty-count">0</div>
+        <div class="qty-btn qty-plus">+</div>
+      </div>
+    </div>
+    <div class="item" data-name="Coca-Cola Zero" data-price="1000">
+      <div class="item-info"><div class="item-name">Coca-Cola Zero (330ml)</div><div class="item-price">1,000 IQD</div></div>
+      <div class="qty-controls">
+        <div class="qty-btn qty-minus">&minus;</div>
+        <div class="qty-count">0</div>
+        <div class="qty-btn qty-plus">+</div>
+      </div>
+    </div>
+    <div class="item" data-name="Sprite" data-price="1000">
+      <div class="item-info"><div class="item-name">Sprite (330ml)</div><div class="item-price">1,000 IQD</div></div>
+      <div class="qty-controls">
+        <div class="qty-btn qty-minus">&minus;</div>
+        <div class="qty-count">0</div>
+        <div class="qty-btn qty-plus">+</div>
+      </div>
+    </div>
+    <div class="item" data-name="Dasani Minera" data-price="1000">
+      <div class="item-info"><div class="item-name">Dasani Minera (200ml)</div><div class="item-price">1,000 IQD</div></div>
+      <div class="qty-controls">
+        <div class="qty-btn qty-minus">&minus;</div>
+        <div class="qty-count">0</div>
+        <div class="qty-btn qty-plus">+</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Delivery</h2>
+    <div class="delivery-options">
+      <div class="delivery-btn active" data-fee="0">No Delivery</div>
+      <div class="delivery-btn" data-fee="1000">Delivery — 1,000</div>
+      <div class="delivery-btn" data-fee="2000">Delivery — 2,000</div>
+    </div>
+  </div>
+
+</main>
+
+<div class="total-bar">
+  <div>
+    <div class="label">Total</div>
+    <div class="total-breakdown" id="breakdown">Items: 0 &middot; Delivery: 0</div>
+  </div>
+  <div class="amount" id="totalAmount">0 IQD</div>
+  <div class="btn-group">
+    <button class="receipt-btn" id="receiptBtn">Receipt</button>
+    <button class="reset-btn" id="resetBtn">Reset</button>
+  </div>
+</div>
+
+<div class="receipt-overlay" id="receiptOverlay">
+  <div class="receipt-card">
+    <div class="receipt-header">
+      <h2>Ember Smoke &amp; Flavor</h2>
+      <p>Erbil, Kurdistan</p>
+    </div>
+    <div id="receiptLines"></div>
+    <div class="receipt-total-line">
+      <span>Total</span>
+      <span id="receiptTotal">0 IQD</span>
+    </div>
+    <button class="receipt-close-btn" id="receiptCloseBtn">Close</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  var deliveryFee = 0;
+
+  function formatNumber(n) {
+    return n.toLocaleString('en-US');
+  }
+
+  function updateTotal() {
+    var itemsTotal = 0;
+    document.querySelectorAll('.item').forEach(function(item) {
+      var price = parseInt(item.getAttribute('data-price'), 10);
+      var qty = parseInt(item.querySelector('.qty-count').textContent, 10);
+      itemsTotal += price * qty;
+    });
+
+    var grandTotal = itemsTotal + deliveryFee;
+
+    document.getElementById('totalAmount').textContent = formatNumber(grandTotal) + ' IQD';
+    document.getElementById('breakdown').textContent =
+      'Items: ' + formatNumber(itemsTotal) + ' \u00b7 Delivery: ' + formatNumber(deliveryFee);
+  }
+
+  document.querySelectorAll('.item').forEach(function(item) {
+    var countEl = item.querySelector('.qty-count');
+    var minusBtn = item.querySelector('.qty-minus');
+    var plusBtn = item.querySelector('.qty-plus');
+
+    plusBtn.addEventListener('click', function() {
+      var current = parseInt(countEl.textContent, 10);
+      countEl.textContent = current + 1;
+      minusBtn.classList.add('show');
+      updateTotal();
+    });
+
+    minusBtn.addEventListener('click', function() {
+      var current = parseInt(countEl.textContent, 10);
+      if (current > 0) {
+        countEl.textContent = current - 1;
+      }
+      if (current - 1 <= 0) {
+        minusBtn.classList.remove('show');
+      }
+      updateTotal();
+    });
+  });
+
+  document.querySelectorAll('.delivery-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.delivery-btn').forEach(function(b) {
+        b.classList.remove('active');
+      });
+      btn.classList.add('active');
+      deliveryFee = parseInt(btn.getAttribute('data-fee'), 10);
+      updateTotal();
+    });
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', function() {
+    document.querySelectorAll('.item').forEach(function(item) {
+      item.querySelector('.qty-count').textContent = '0';
+      item.querySelector('.qty-minus').classList.remove('show');
+    });
+    document.querySelectorAll('.delivery-btn').forEach(function(b) {
+      b.classList.remove('active');
+    });
+    document.querySelector('.delivery-btn[data-fee="0"]').classList.add('active');
+    deliveryFee = 0;
+    updateTotal();
+  });
+
+  function buildReceipt() {
+    var linesContainer = document.getElementById('receiptLines');
+    linesContainer.innerHTML = '';
+    var itemsTotal = 0;
+    var hasItems = false;
+
+    document.querySelectorAll('.item').forEach(function(item) {
+      var qty = parseInt(item.querySelector('.qty-count').textContent, 10);
+      if (qty > 0) {
+        hasItems = true;
+        var name = item.getAttribute('data-name');
+        var price = parseInt(item.getAttribute('data-price'), 10);
+        var lineTotal = price * qty;
+        itemsTotal += lineTotal;
+
+        var line = document.createElement('div');
+        line.className = 'receipt-line';
+        line.innerHTML =
+          '<span class="rname">' + name + ' <span class="rqty">&times;' + qty + '</span></span>' +
+          '<span class="rprice">' + formatNumber(lineTotal) + '</span>';
+        linesContainer.appendChild(line);
+      }
+    });
+
+    if (!hasItems) {
+      var empty = document.createElement('div');
+      empty.className = 'receipt-empty';
+      empty.textContent = 'No items selected yet.';
+      linesContainer.appendChild(empty);
+    }
+
+    if (deliveryFee > 0) {
+      var divider = document.createElement('div');
+      divider.className = 'receipt-divider';
+      linesContainer.appendChild(divider);
+
+      var deliveryLine = document.createElement('div');
+      deliveryLine.className = 'receipt-line';
+      deliveryLine.innerHTML =
+        '<span class="rname">Delivery</span>' +
+        '<span class="rprice">' + formatNumber(deliveryFee) + '</span>';
+      linesContainer.appendChild(deliveryLine);
+    }
+
+    document.getElementById('receiptTotal').textContent =
+      formatNumber(itemsTotal + deliveryFee) + ' IQD';
+  }
+
+  document.getElementById('receiptBtn').addEventListener('click', function() {
+    buildReceipt();
+    document.getElementById('receiptOverlay').classList.add('active');
+  });
+
+  document.getElementById('receiptCloseBtn').addEventListener('click', function() {
+    document.getElementById('receiptOverlay').classList.remove('active');
+  });
+
+  document.getElementById('receiptOverlay').addEventListener('click', function(e) {
+    if (e.target === document.getElementById('receiptOverlay')) {
+      document.getElementById('receiptOverlay').classList.remove('active');
+    }
+  });
+
+  updateTotal();
+})();
+</script>
+
+</body>
+</html>
+
