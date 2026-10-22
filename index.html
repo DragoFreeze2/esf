@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
-<meta name="description" content="Ember Smoke & Flavor: wood-fired, slow-smoked whole chicken in Erbil, Kurdistan. Original BBQ, Ember White, and Ember Heat sauces, served with signature red vegetable rice and Ember smoked vegetables.">
+<meta name="description" content="Ember Smoke & Flavor: wood-fired, slow-smoked meats, beef short ribs, lamb shank, burgers, and whole chicken in Erbil, Kurdistan.">
 <style>
   :root {
     --steel: #14110e;
@@ -231,6 +231,35 @@
     font-style: normal;
   }
 
+  /* Multi-option pricing rows (e.g., 400g / 800g / 1600g) */
+  .item-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .option-pill {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    background: var(--cream-dim);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 13.5px;
+  }
+
+  .option-weight {
+    font-weight: bold;
+    color: var(--steel);
+  }
+
+  .option-price {
+    font-weight: bold;
+    color: var(--ember);
+    font-variant-numeric: tabular-nums;
+  }
+
   footer {
     text-align: center;
     margin-top: 50px;
@@ -257,8 +286,8 @@
   "@context": "https://schema.org",
   "@type": "Restaurant",
   "name": "Ember Smoke & Flavor",
-  "description": "Ember Smoke & Flavor: wood-fired, slow-smoked whole chicken in Erbil, Kurdistan. Original BBQ, Ember White, and Ember Heat sauces, served with signature red vegetable rice and Ember smoked vegetables.",
-  "servesCuisine": ["Barbecue", "Grill"],
+  "description": "Ember Smoke & Flavor: wood-fired, slow-smoked meats, beef short ribs, lamb shank, burgers, and whole chicken in Erbil, Kurdistan.",
+  "servesCuisine": ["Barbecue", "Grill", "Smokehouse"],
   "priceRange": "$$",
   "address": {
     "@type": "PostalAddress",
@@ -274,205 +303,85 @@
     "hasMenuSection": [
       {
         "@type": "MenuSection",
+        "name": "Smoked Meats",
+        "hasMenuItem": [
+          {
+            "@type": "MenuItem",
+            "name": "Smoked Ribs on Rice (400g)",
+            "description": "400g of beef short ribs, smoked for 8 hours until fall-off-the-bone tender, served over a bed of rice.",
+            "offers": { "@type": "Offer", "price": "17000", "priceCurrency": "IQD" }
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Smoked Ribs on Rice (800g)",
+            "description": "800g of beef short ribs, smoked for 8 hours until fall-off-the-bone tender, served over a bed of rice.",
+            "offers": { "@type": "Offer", "price": "34000", "priceCurrency": "IQD" }
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Smoked Ribs on Rice (1600g)",
+            "description": "1600g of beef short ribs, smoked for 8 hours until fall-off-the-bone tender, served over a bed of rice.",
+            "offers": { "@type": "Offer", "price": "68000", "priceCurrency": "IQD" }
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Smoked Lamb Shank on Rice",
+            "description": "A 400–450g lamb shank, smoked for 8 hours until fall-off-the-bone tender, served over a bed of rice.",
+            "offers": { "@type": "Offer", "price": "25000", "priceCurrency": "IQD" }
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Smoked Lamb Neck on Rice (Family Feast)",
+            "description": "A generous 1.6–1.7kg smoked lamb neck, slow-smoked until fall-off-the-bone tender, served over a bed of rice. Perfect for 5–6 people.",
+            "offers": { "@type": "Offer", "price": "75000", "priceCurrency": "IQD" }
+          }
+        ]
+      },
+      {
+        "@type": "MenuSection",
+        "name": "Burgers & Sandwiches",
+        "hasMenuItem": [
+          {
+            "@type": "MenuItem",
+            "name": "Smoked Burger",
+            "description": "A juicy 225g local beef patty, smoked over real walnut wood for a rich, deep smoky flavor.",
+            "offers": { "@type": "Offer", "price": "10500", "priceCurrency": "IQD" }
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Smoked Ribs Sandwich",
+            "description": "400g of smoked beef short ribs, smoked for 8 hours until fall-off-the-bone tender, served in a sandwich.",
+            "offers": { "@type": "Offer", "price": "15500", "priceCurrency": "IQD" }
+          }
+        ]
+      },
+      {
+        "@type": "MenuSection",
         "name": "Smoked Chicken",
         "hasMenuItem": [
           {
             "@type": "MenuItem",
             "name": "Smoked Chicken (Full)",
             "description": "Whole smoked chicken served with signature red vegetable rice, white rice, and Ember smoked vegetables.",
-            "offers": {
-              "@type": "Offer",
-              "price": "19750",
-              "priceCurrency": "IQD"
-            }
+            "offers": { "@type": "Offer", "price": "19750", "priceCurrency": "IQD" }
           },
           {
             "@type": "MenuItem",
             "name": "Smoked Chicken (Half)",
             "description": "One thigh and one breast, served with signature red vegetable rice, white rice, and Ember smoked vegetables.",
-            "offers": {
-              "@type": "AggregateOffer",
-              "price": "10250",
-              "priceCurrency": "IQD"
-            }
+            "offers": { "@type": "AggregateOffer", "price": "10250", "priceCurrency": "IQD" }
           },
           {
             "@type": "MenuItem",
             "name": "Smoked Chicken (Quarter) - Thigh",
             "description": "Smoked thigh, served with signature red vegetable rice, white rice, and Ember smoked vegetables.",
-            "offers": {
-              "@type": "AggregateOffer",
-              "price": "5750",
-              "priceCurrency": "IQD"
-            }
+            "offers": { "@type": "AggregateOffer", "price": "5750", "priceCurrency": "IQD" }
           },
           {
             "@type": "MenuItem",
             "name": "Smoked Chicken (Quarter) - Breast",
             "description": "Smoked breast, served with signature red vegetable rice, white rice, and Ember smoked vegetables.",
-            "offers": {
-              "@type": "AggregateOffer",
-              "price": "6750",
-              "priceCurrency": "IQD"
-            }
-          }
-        ]
-      },
-      {
-        "@type": "MenuSection",
-        "name": "Signature Sides",
-        "hasMenuItem": [
-          {
-            "@type": "MenuItem",
-            "name": "Signature Red Vegetable Rice",
-            "description": "Our signature smoked red vegetable rice, made with fresh vegetables and infused with deep, natural smoke for a rich and delicious flavor.",
-            "offers": {
-              "@type": "Offer",
-              "price": "3500",
-              "priceCurrency": "IQD"
-            }
-          },
-          {
-            "@type": "MenuItem",
-            "name": "Ember Smoked Vegetables",
-            "description": "Fresh vegetables smoked over real wood, bringing deep, vibrant smoke into every bite. Tomato, potato, corn, carrot.",
-            "offers": {
-              "@type": "Offer",
-              "price": "3000",
-              "priceCurrency": "IQD"
-            }
-          },
-          {
-            "@type": "MenuItem",
-            "name": "Ember Butter Potatoes",
-            "description": "Our signature potatoes, slow-smoked over real wood and finished with butter to bring out their rich, vibrant smoky flavor.",
-            "offers": {
-              "@type": "Offer",
-              "price": "3000",
-              "priceCurrency": "IQD"
-            }
-          },
-          {
-            "@type": "MenuItem",
-            "name": "White Rice",
-            "description": "Our freshly prepared white rice.",
-            "offers": {
-              "@type": "Offer",
-              "price": "1500",
-              "priceCurrency": "IQD"
-            }
-          },
-          {
-            "@type": "MenuItem",
-            "name": "Rizo Classic",
-            "description": "Classic Rizo bowl with seasoned rice, smoked chicken pieces, and our signature sauce.",
-            "offers": {
-              "@type": "Offer",
-              "price": "6500",
-              "priceCurrency": "IQD"
-            }
-          },
-          {
-            "@type": "MenuItem",
-            "name": "Pumpkin Soup",
-            "description": "Rich and creamy roasted pumpkin soup, seasoned with warm spices.",
-            "offers": {
-              "@type": "Offer",
-              "price": "3500",
-              "priceCurrency": "IQD"
-            }
-          }
-        ]
-      },
-      {
-        "@type": "MenuSection",
-        "name": "Extra Sauce",
-        "hasMenuItem": [
-          {
-            "@type": "MenuItem",
-            "name": "Original BBQ",
-            "description": "Our signature smoky-sweet BBQ glaze, rich and tangy, finished with a subtle touch of tamarind.",
-            "offers": {
-              "@type": "Offer",
-              "price": "1000",
-              "priceCurrency": "IQD"
-            }
-          },
-          {
-            "@type": "MenuItem",
-            "name": "Ember White",
-            "description": "Creamy, tangy signature sauce with a bold, peppery finish.",
-            "offers": {
-              "@type": "Offer",
-              "price": "1000",
-              "priceCurrency": "IQD"
-            }
-          },
-          {
-            "@type": "MenuItem",
-            "name": "Ember Heat",
-            "description": "Freshly made مع real vegetables and chilies. Bold heat, bright finish.",
-            "offers": {
-              "@type": "Offer",
-              "price": "1000",
-              "priceCurrency": "IQD"
-            }
-          }
-        ]
-      },
-      {
-        "@type": "MenuSection",
-        "name": "Beverages",
-        "hasMenuItem": [
-          {
-            "@type": "MenuItem",
-            "name": "Bottled Water",
-            "description": "500ml bottled water.",
-            "offers": {
-              "@type": "Offer",
-              "price": "500",
-              "priceCurrency": "IQD"
-            }
-          },
-          {
-            "@type": "MenuItem",
-            "name": "Coca-Cola",
-            "description": "330ml can.",
-            "offers": {
-              "@type": "Offer",
-              "price": "1000",
-              "priceCurrency": "IQD"
-            }
-          },
-          {
-            "@type": "MenuItem",
-            "name": "Coca-Cola Zero",
-            "description": "330ml can.",
-            "offers": {
-              "@type": "Offer",
-              "price": "1000",
-              "priceCurrency": "IQD"
-            }
-          },
-          {
-            "@type": "MenuItem",
-            "name": "Sprite",
-            "description": "330ml can.",
-            "offers": {
-              "@type": "Offer",
-              "price": "1000",
-              "priceCurrency": "IQD"
-            }
-          },
-          {
-            "@type": "MenuItem",
-            "name": "Dasani Minera",
-            "description": "200ml lemon-flavored mineral water.",
-            "offers": {
-              "@type": "Offer",
-              "price": "1000",
-              "priceCurrency": "IQD"
-            }
+            "offers": { "@type": "AggregateOffer", "price": "6750", "priceCurrency": "IQD" }
           }
         ]
       }
@@ -496,7 +405,7 @@
     <div class="hero-mark">E S F</div>
     <h1>Ember Smoke &amp; Flavor</h1>
     <p data-lang="en" class="active"> Slow Cooked &middot; Smoke, our secret ingredient</p>
-    <p data-lang="ku">لەسەر خو برژاوە ، دووکەل نهینی تامەکەمانە &middot;</p>
+    <p data-lang="ku">لەسەر خۆ برژاوە &middot; دووکەڵ نهێنی تامەکەمانە</p>
     <p data-lang="ar">مطهو على مهل &middot; والدخان سرّ نكهتنا.</p>
   </div>
 </div>
@@ -505,10 +414,11 @@
 
   <div class="intro">
     <p data-lang="en" class="active">Our chicken comes in three flavors. Choose one flavor for your whole meal, or mix flavors by piece.</p>
-    <p data-lang="ku">مریشکەکانمان بە سێ چیژی جیاواز دێت: یەک لە تامەکان هەڵبژێرە وەکو خواردنێک، یان بە تێکەڵی پارچە جیاوازەکان داوا بکە.</p>
+    <p data-lang="ku">مریشکەکانمان بە سێ چێژی جیاواز دێت: یەک لە تامەکان هەڵبژێرە وەکو خواردنێک، یان بە تێکەڵی پارچە جیاوازەکان داوا بکە.</p>
     <p data-lang="ar">يأتي دجاجنا بثلاث نكهات. اختر نكهة واحدة لوجبتك كاملة، أو امزج النكهات حسب القطعة.</p>
   </div>
 
+  <!-- ===== OUR FLAVORS ===== -->
   <section class="section">
     <div class="section-head">
       <h2>
@@ -530,8 +440,8 @@
         </div>
         <div class="item-desc">
           <span data-lang="en" class="active">Our signature smoky-sweet BBQ glaze. Rich, tangy, and finished with a subtle touch of tamarind.</span>
-          <span data-lang="ku">سۆسی باربیکیوی تایبەتی خۆمان، بە تامی دووکەڵ و شیرین. دەوڵەمەند و ترشیەکی سووکی تەمەرهندی هەیە.</span>
-          <span data-lang="ar">صلصة باربكيو الخاصة بينا بنكهة مدخنة وحلوة، غنية ومتوازنة بلمسة حامضة خفيفة من التمر الهندي.</span>
+          <span data-lang="ku">سۆسی باربیکیوی تایبەتی خۆمان، بە تامی دووکەڵ و شیرین. دەوڵەمەند و ترشییەکی سووکی تەمەرهندی هەیە.</span>
+          <span data-lang="ar">صلصة باربكيو الخاصة بنا بنكهة مدخنة وحلوة، غنية ومتوازنة بلمسة حامضة خفيفة من التمر الهندي.</span>
         </div>
       </div>
     </div>
@@ -547,8 +457,8 @@
         </div>
         <div class="item-desc">
           <span data-lang="en" class="active">American-inspired. Our creamy, tangy signature sauce with a bold, peppery finish. Cool, rich, and perfectly balanced with our smoked chicken.</span>
-          <span data-lang="ku">وەرگیراوە لە تامە ئەمریکییەکان. سۆسی تایبەتی خۆمانە، کرێمی و ترشیەکی کەم، بە کۆتایییەکی توند و پڕ لە تامی بیبەری. سارد و دەوڵەمەندە و بە تەواوی لەگەڵ مریشکی دووکەڵکراوەکەمان هاوسەنگە.</span>
-          <span data-lang="ar">مستوحاة من النكهات الأمريكية. صلصتنا الخاصة الكريمية والحامضة بلمسة فلفل احمر جريئة. غنية ومنعشة ومتوازنة تمامًا مع دجاجنا المدخن.</span>
+          <span data-lang="ku">وەرگیراوە لە تامە ئەمریکییەکان. سۆسی تایبەتی خۆمانە، کرێمی و ترشییەکی کەم، بە کۆتایییەکی توند و پڕ لە تامی بیبەری. سارد و دەوڵەمەندە و بە تەواوی لەگەڵ مریشکی دووکەڵکراوەکەمان هاوسەنگە.</span>
+          <span data-lang="ar">مستوحاة من النكهات الأمريكية. صلصتنا الخاصة الكريمية والحامضة بلمسة فلفل أحمر جريئة. غنية ومنعشة ومتوازنة تمامًا مع دجاجنا المدخن.</span>
         </div>
       </div>
     </div>
@@ -564,13 +474,158 @@
         </div>
         <div class="item-desc">
           <span data-lang="en" class="active">African-inspired. Freshly made with real vegetables and chilies. Bold heat, bright finish.</span>
-          <span data-lang="ku">وەرگیراوە لە تامە ئەفریقییەکان. بە تازەیی لە سەوزە و بیبەری فرێش  ئامادە دەکرێت. تونیەکی بەهێز و کۆتایییەکی بەچیژو تازە.</span>
+          <span data-lang="ku">وەرگیراوە لە تامە ئەفریقییەکان. بە تازەیی لە سەوزە و بیبەری فرێش ئامادە دەکرێت. تونییەکی بەهێز و کۆتایییەکی بەچێژ و تازە.</span>
           <span data-lang="ar">مستوحاة من النكهات الأفريقية. محضّرة طازجة من الخضروات والفلفل الحقيقي. حرارة جريئة ولمسة منعشة.</span>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ===== SMOKED MEATS ===== -->
+  <section class="section">
+    <div class="section-head">
+      <h2>
+        <span data-lang="en" class="active">Smoked Meats</span>
+        <span data-lang="ku">گۆشتی دووکەڵکراو</span>
+        <span data-lang="ar">اللحوم المدخنة</span>
+      </h2>
+    </div>
+    <div class="section-line"></div>
+
+    <!-- Ribs on Rice (400g / 800g / 1600g) -->
+    <div class="item">
+      <div class="item-info">
+        <div class="item-top">
+          <div class="item-name">
+            <span data-lang="en" class="active">Smoked Ribs on Rice</span>
+            <span data-lang="ku">پەراسووی دووکەڵکراو لەسەر برنج</span>
+            <span data-lang="ar">أضلاع على تمن</span>
+          </div>
+        </div>
+        <div class="item-desc">
+          <span data-lang="en" class="active">Beef short ribs, smoked for 8 hours until fall-off-the-bone tender, served over a bed of rice. Rich, smoky, and deeply satisfying.</span>
+          <span data-lang="ku">پەراسووی گۆشتی گۆلک، بۆ ماوەی ٨ کاتژمێر دووکەڵکراوە تا گۆشتەکە زۆر نەرم دەبێت و بە ئاسانی لە ئێسک جیا دەبێتەوە، لەسەر برنج پێشکەش دەکرێت. تامێکی دەوڵەمەندی دووکەڵ و ژەمێکی تێرکەر.</span>
+          <span data-lang="ar">ضلوع بقر قصيرة، مدخّنة لمدة 8 ساعات حتى تصبح طرية جداً ويتساقط اللحم عن العظم بسهولة، تُقدّم فوق طبقة من الأرز. نكهة غنية ومدخنة ووجبة مشبعة بكل تفاصيلها.</span>
+        </div>
+        <div class="item-options">
+          <div class="option-pill">
+            <span class="option-weight">
+              <span data-lang="en" class="active">400g</span>
+              <span data-lang="ku">٤٠٠ گرام</span>
+              <span data-lang="ar">400 غرام</span>
+            </span>
+            <span class="option-price">17,000</span>
+          </div>
+          <div class="option-pill">
+            <span class="option-weight">
+              <span data-lang="en" class="active">800g</span>
+              <span data-lang="ku">٨٠٠ گرام</span>
+              <span data-lang="ar">800 غرام</span>
+            </span>
+            <span class="option-price">33,000</span>
+          </div>
+          <div class="option-pill">
+            <span class="option-weight">
+              <span data-lang="en" class="active">1600g</span>
+              <span data-lang="ku">١٦٠٠ گرام</span>
+              <span data-lang="ar">1600 غرام</span>
+            </span>
+            <span class="option-price">60,000</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Smoked Shank on Rice -->
+    <div class="item">
+      <div class="item-info">
+        <div class="item-top">
+          <div class="item-name">
+            <span data-lang="en" class="active">Smoked Shank on Rice</span>
+            <span data-lang="ku">ماغییەی مەڕی دووکەڵکراو لەسەر برنج</span>
+            <span data-lang="ar">زند على تمن</span>
+          </div>
+          <div class="item-price">25,000</div>
+        </div>
+        <div class="item-desc">
+          <span data-lang="en" class="active">A 400–450g lamb shank, smoked for 8 hours until fall-off-the-bone tender, served over a bed of rice. Slow-smoked to perfection for rich flavor and melt-in-your-mouth tenderness.</span>
+          <span data-lang="ku">ماغییەی (قاچی) گۆشتی مەڕ بە کێشی ٤٠٠–٤٥٠ گرام، بۆ ماوەی ٨ کاتژمێر دووکەڵکراوە تا گۆشتەکە زۆر نەرم دەبێت و بە ئاسانی لە ئێسک جیا دەبێتەوە، لەسەر برنج پێشکەش دەکرێت. بە هێواشی دووکەڵکراوە بۆ تامێکی دەوڵەمەند و نەرمییەک کە لە دەمدا دەتوێتەوە.</span>
+          <span data-lang="ar">موزة غنم بوزن 400–450 غرام، مدخّنة لمدة 8 ساعات حتى تصبح طرية جداً ويتساقط اللحم عن العظم بسهولة، تُقدّم فوق طبقة من الأرز. تدخين طويل يمنحها نكهة غنية وطراوة تذوب في الفم.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Smoked Lamb Neck on Rice -->
+    <div class="item">
+      <div class="item-info">
+        <div class="item-top">
+          <div class="item-name">
+            <span data-lang="en" class="active">Smoked Lamb Neck on Rice</span>
+            <span data-lang="ku">ملی مەڕی دووکەڵکراو لەسەر برنج</span>
+            <span data-lang="ar">رقبة غنم مدخّنة على تمن</span>
+          </div>
+          <div class="item-price">check with restaurant</div>
+        </div>
+        <div class="item-desc">
+          <span data-lang="en" class="active">A generous 1.6–1.7kg smoked lamb neck, slow-smoked until fall-off-the-bone tender, served over a bed of rice. A rich, smoky feast made for sharing, perfect for 5–6 people.</span>
+          <span data-lang="ku">ملی گۆشتی مەڕی دووکەڵکراو بە کێشی ١٦٠٠–١٧٠٠ گرام، بە هێواشی دووکەڵ دەکرێت تا گۆشتەکە زۆر نەرم دەبێت و بە ئاسانی لە ئێسک جیا دەبێتەوە، لەسەر برنج پێشکەش دەکرێت. خوانێکی دەوڵەمەند بە تامی دووکەڵ، گونجاو بۆ هاوبەشکردن و بەشی ٥ تا ٦ کەس دەکات.</span>
+          <span data-lang="ar">رقبة غنم مدخّنة بوزن 1600–1700 غرام، تُدخّن على مهل حتى يصبح اللحم طرياً جداً ويتساقط عن العظم بسهولة، وتُقدّم على صحن من الأرز. وجبة غنية بالنكهة المدخنة، مثالية للمشاركة وتكفي من 5 إلى 6 أشخاص.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BURGERS & SANDWICHES ===== -->
+  <section class="section">
+    <div class="section-head">
+      <h2>
+        <span data-lang="en" class="active">Burgers &amp; Sandwiches</span>
+        <span data-lang="ku">بەرگەر و ساندویچ</span>
+        <span data-lang="ar">البرغر والساندويتشات</span>
+      </h2>
+    </div>
+    <div class="section-line"></div>
+
+    <!-- Smoked Burger -->
+    <div class="item">
+      <div class="item-info">
+        <div class="item-top">
+          <div class="item-name">
+            <span data-lang="en" class="active">Smoked Burger</span>
+            <span data-lang="ku">بەرگەری دووکەڵکراو</span>
+            <span data-lang="ar">برغر مدخّن</span>
+          </div>
+          <div class="item-price">10,500</div>
+        </div>
+        <div class="item-desc">
+          <span data-lang="en" class="active">A juicy 225g local beef patty, smoked over real walnut wood for a rich, deep smoky flavor. A delicious twist on a classic burger.</span>
+          <span data-lang="ku">بەرگەرێک لە گۆشتی گۆلکی ناوخۆیی بە کێشی ٢٢٥ گرام، بە داری گوێزی ڕاستەقینە دووکەڵکراوە بۆ تامێکی دەوڵەمەند و قووڵی دووکەڵ. تامێکی تایبەت بۆ بەرگەرێکی کلاسیکی.</span>
+          <span data-lang="ar">برغر من لحم البقر المحلي بوزن 225 غرام، مدخّن على خشب الجوز الحقيقي ليكتسب نكهة غنية ومدخنة. مذاق مميز يضيف لمسة خاصة إلى البرغر الكلاسيكي.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ribs Sandwich -->
+    <div class="item">
+      <div class="item-info">
+        <div class="item-top">
+          <div class="item-name">
+            <span data-lang="en" class="active">Smoked Ribs Sandwich</span>
+            <span data-lang="ku">ساندویچی پەراسووی دووکەڵکراو</span>
+            <span data-lang="ar">لفة ضلوع</span>
+          </div>
+          <div class="item-price">15,500</div>
+        </div>
+        <div class="item-desc">
+          <span data-lang="en" class="active">400g of smoked beef short ribs, smoked for 8 hours until fall-off-the-bone tender, served in a sandwich bursting with rich, deep smoky flavor.</span>
+          <span data-lang="ku">ساندویچی پەراسووی گۆشتی گۆلک بە کێشی ٤٠٠ گرام، بۆ ماوەی ٨ کاتژمێر دووکەڵکراوە تا گۆشتەکە زۆر نەرم دەبێت و بە ئاسانی لە ئێسک جیا دەبێتەوە، بە تامێکی دەوڵەمەندی دووکەڵ لە هەر پارویەکدا.</span>
+          <span data-lang="ar">ساندويتش أضلاع بقري قصيرة مدخّنة بوزن 400 غرام، تُدخّن لمدة 8 ساعات حتى يصبح اللحم طرياً جداً ويتساقط عن العظم بسهولة، مع نكهة تدخين غنية في كل لقمة.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SMOKED CHICKEN ===== -->
   <section class="section">
     <div class="section-head">
       <h2>
@@ -593,9 +648,9 @@
           <div class="item-price">19,750</div>
         </div>
         <div class="item-desc">
-          <span data-lang="en" class="active">a whole smoked chicken served with signature red vegetable rice, white rice, and Ember smoked vegetables.</span>
-          <span data-lang="ku">یەک دانە مریشکی تەواوی دووکەڵکراو، لەگەڵ برنجی سووری بە سەوزەی تایبەتی خۆمان، وبرنجی سپی، سەوزەی دووکەڵکراوەکانمان. </span>
-          <span data-lang="ar">دجاجة كاملة مدخنة تُقدّم مع الرز الأحمر الخاص بالخضروات، والرز الأبيض، والخضروات ال مدخنة. </span>
+          <span data-lang="en" class="active">A whole smoked chicken served with signature red vegetable rice, white rice, and Ember smoked vegetables.</span>
+          <span data-lang="ku">یەک دانە مریشکی تەواوی دووکەڵکراو، لەگەڵ برنجی سووری بە سەوزەی تایبەتی خۆمان، و برنجی سپی، و سەوزە دووکەڵکراوەکانمان.</span>
+          <span data-lang="ar">دجاجة كاملة مدخنة تُقدّم مع الرز الأحمر الخاص بالخضروات، والرز الأبيض، والخضروات المدخنة.</span>
         </div>
       </div>
     </div>
@@ -612,9 +667,9 @@
           <div class="item-price">10,250</div>
         </div>
         <div class="item-desc">
-          <span data-lang="en" class="active">One thigh and one breast, served with signature red vegetable rice, white rice, and Ember smoked vegetables. </span>
-          <span data-lang="ku">یەک ڕان و یەک سنگ، لەگەڵ برنجی سوور بە سەوزەی تایبەتی خۆمان، وبرنجی سپی، سەوزەی دووکەڵکراوەکانمان. </span>
-          <span data-lang="ar">فخذ واحد وصدر واحد، يُقدّمان مع الرز الأحمر الخاص بالخضروات، والرز الأبيض، والخضروات ال مدخنة. </span>
+          <span data-lang="en" class="active">One thigh and one breast, served with signature red vegetable rice, white rice, and Ember smoked vegetables.</span>
+          <span data-lang="ku">یەک ڕان و یەک سنگ، لەگەڵ برنجی سوور بە سەوزەی تایبەتی خۆمان، و برنجی سپی، و سەوزە دووکەڵکراوەکانمان.</span>
+          <span data-lang="ar">فخذ واحد وصدر واحد، يُقدّمان مع الرز الأحمر الخاص بالخضروات، والرز الأبيض، والخضروات المدخنة.</span>
         </div>
       </div>
     </div>
@@ -632,8 +687,8 @@
         </div>
         <div class="item-desc">
           <span data-lang="en" class="active">Choose your piece, smoked thigh or smoked breast. Served with signature red vegetable rice, white rice, and Ember smoked vegetables.</span>
-          <span data-lang="ku">پارچەیەک هەڵبژێرە، ڕانی دووکەڵکراو یان سنگی دووکەڵکراو. لەگەڵ برنجی سوور بە سەوزەی تایبەتی خۆمان ،و برنجی سپی، و سەوزە دووکەڵکراوەکانمان دەخرێتە پێش.</span>
-          <span data-lang="ar">اختر قطعتك، فخذ مدخن أو صدر مدخن. تُقدّم مع ألرز الأحمر الخاص بالخضروات، والرز الأبيض، والخضروات المدخنة.</span>
+          <span data-lang="ku">پارچەیەک هەڵبژێرە، ڕانی دووکەڵکراو یان سنگی دووکەڵکراو. لەگەڵ برنجی سوور بە سەوزەی تایبەتی خۆمان، و برنجی سپی، و سەوزە دووکەڵکراوەکانمان دەخرێتە پێش.</span>
+          <span data-lang="ar">اختر قطعتك، فخذ مدخن أو صدر مدخن. تُقدّم مع الرز الأحمر الخاص بالخضروات، والرز الأبيض، والخضروات المدخنة.</span>
         </div>
       </div>
     </div>
@@ -650,18 +705,19 @@
         </div>
         <div class="item-desc">
           <span data-lang="en" class="active">Choose your piece, smoked thigh or smoked breast. Served with signature red vegetable rice, white rice, and Ember smoked vegetables.</span>
-          <span data-lang="ku">سنگی دووکەڵکراو، لەگەڵ برنجی سوور بە سەوزەی تایبەتی خۆمان، وبرنجی سپی، و سەوزە دووکەڵکراوەکانمان.</span>
+          <span data-lang="ku">سنگی دووکەڵکراو، لەگەڵ برنجی سوور بە سەوزەی تایبەتی خۆمان، و برنجی سپی، و سەوزە دووکەڵکراوەکانمان.</span>
           <span data-lang="ar">صدر مدخن، يُقدّم مع أرزنا الأحمر الخاص بالخضروات، والأرز الأبيض، والخضروات المدخنة.</span>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ===== SIGNATURE SIDES ===== -->
   <section class="section">
     <div class="section-head">
       <h2>
-        <span data-lang="en" class="active">Our signature sides.</span>
-        <span data-lang="ku">خوادنە لاوەکییە تایبەتییەکانمان</span>
+        <span data-lang="en" class="active">Our Signature Sides</span>
+        <span data-lang="ku">خواردنە لاوەکییە تایبەتییەکانمان</span>
         <span data-lang="ar">أطباقنا الجانبية الخاصة</span>
       </h2>
     </div>
@@ -673,7 +729,7 @@
           <div class="item-name">
             <span data-lang="en" class="active">Signature Red Vegetable Rice</span>
             <span data-lang="ku">برنجی سووری تایبەتی بە سەوزە</span>
-            <span data-lang="ar">ألرز الأحمر الخاص بالخضروات</span>
+            <span data-lang="ar">الرز الأحمر الخاص بالخضروات</span>
           </div>
           <div class="item-price">3,500</div>
         </div>
@@ -698,7 +754,7 @@
         </div>
         <div class="item-desc">
           <span data-lang="en" class="active">Fresh vegetables smoked over real wood, bringing deep, vibrant smoke into every bite. Tomato, potato, corn, carrot.</span>
-          <span data-lang="ku">سەوزەی تازە کە بە داری سورشتی دووکەڵ کراوە، بۆ ئەوەی لە هەر پارویەکدا تامێکی قووڵ و زیندووی دووکەڵ هەست پێبکرێت. تەماتە، پەتاتە، گەنمە شامی، گیزەر.</span>
+          <span data-lang="ku">سەوزەی تازە کە بە داری سروشتی دووکەڵ کراوە، بۆ ئەوەی لە هەر پارویەکدا تامێکی قووڵ و زیندووی دووکەڵ هەست پێبکرێت. تەماتە، پەتاتە، گەنمەشامی، گێزەر.</span>
           <span data-lang="ar">خضروات طازجة مدخّنة على الحطب، لتمنح كل لقمة نكهة دخان غنية ونابضة. طماطم، بطاطا، ذرة، جزر.</span>
         </div>
       </div>
@@ -716,7 +772,7 @@
         </div>
         <div class="item-desc">
           <span data-lang="en" class="active">Our signature potatoes, slow-smoked over real wood and finished with butter to bring out their rich, vibrant smoky flavor.</span>
-          <span data-lang="ku">پەتاتە تایبەتەکەمان، بە هێواشی لەسەرئاگری دارو دووکەڵ بە کەرەوە ئامادە دەکری، بۆ ئەوەی تامی دەوڵەمەند و زیندووی دووکەڵ زیاتر دەربکەوێت.</span>
+          <span data-lang="ku">پەتاتە تایبەتەکەمان، بە هێواشی لەسەر ئاگری دار و دووکەڵ بە کەرەوە ئامادە دەکرێت، بۆ ئەوەی تامی دەوڵەمەند و زیندووی دووکەڵ زیاتر دەربکەوێت.</span>
           <span data-lang="ar">بطاطتنا الخاصة، مدخّنة ببطء على الحطب وممزوجة بالزبدة لإبراز نكهة الدخان الغنية والنابضة.</span>
         </div>
       </div>
@@ -779,6 +835,7 @@
     </div>
   </section>
 
+  <!-- ===== EXTRA SAUCE ===== -->
   <section class="section">
     <div class="section-head">
       <h2>
@@ -829,6 +886,7 @@
     </div>
   </section>
 
+  <!-- ===== BEVERAGES ===== -->
   <section class="section">
     <div class="section-head">
       <h2>
@@ -935,9 +993,7 @@
     buttons.forEach(function(btn) {
       btn.classList.toggle('active', btn.getAttribute('data-select-lang') === lang);
     });
-    if (lang === 'ar') {
-      body.setAttribute('dir', 'rtl');
-    } else if (lang === 'ku') {
+    if (lang === 'ar' || lang === 'ku') {
       body.setAttribute('dir', 'rtl');
     } else {
       body.setAttribute('dir', 'ltr');
