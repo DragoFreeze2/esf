@@ -37,6 +37,7 @@ test('serves index.html on root and protects server files', async () => {
       'smoked-vegetables.jpg',
       'lamb-neck-sandwich.jpg',
       'rice-and-fasolia.jpg',
+      'logo.jpg',
     ]) {
       const assetCheck = await fetch(`http://127.0.0.1:${port}/assets/${menuAsset}`);
       assert.equal(assetCheck.status, 200);
